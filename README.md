@@ -132,7 +132,6 @@ docs/                    architecture, principles, production notes, diagrams
 
 - Portfolio: [elysedequina.org](https://elysedequina.org)
 - GitHub: [@elyse-deq](https://github.com/elyse-deq)
-- Related project: [Counsel 360](https://counsel360dash.com), a legal operations dashboard concept that brings matter, document, and AI workflow status into one governed view
 
 Feedback and ideas are welcome. Open an issue or reach out through the portfolio site.
 

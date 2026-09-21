@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "matter-intelligence-brief"
+version = "0.1.0"
+description = "A continuously updating matter brief with source citations, deterministic deadlines, and human review."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Elyse Dequina" }]
+dependencies = []
+
+[project.urls]
+Homepage = "https://elysedequina.org"
+Repository = "https://github.com/elyse-deq/matter-intelligence-brief"
+
+[project.optional-dependencies]
+dev = ["pytest>=7"]
+
+[project.scripts]
+matter-brief = "matter_brief.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src", "."]

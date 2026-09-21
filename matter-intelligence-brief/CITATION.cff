@@ -1,0 +1,11 @@
+cff-version: 1.2.0
+message: "If you use this project, please cite it as below."
+title: "Matter Intelligence Brief"
+type: software
+authors:
+  - family-names: "Dequina"
+    given-names: "Elyse"
+    website: "https://elysedequina.org"
+repository-code: "https://github.com/elyse-deq/matter-intelligence-brief"
+license: MIT
+abstract: "A legal matter brief that keeps itself current: source-cited, deterministic deadlines, and human review for material changes."

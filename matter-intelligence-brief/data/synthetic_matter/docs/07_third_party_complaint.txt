@@ -1,0 +1,14 @@
+FICTIONAL COUNTY CIRCUIT COURT
+COMMERCIAL DIVISION
+
+THIRD-PARTY COMPLAINT
+
+Northwind alleges that any lost inventory was in the custody of a subcontractor at the relevant time and that the
+subcontractor must indemnify Northwind for any liability to Acme.
+
+Third-Party Defendant: Harbor Freight Partners LP
+Third-Party Claim: Contractual indemnification
+
+The Third-Party Complaint was served on September 18, 2026. The Third-Party Defendant's answer is due within 21 days after service.
+
+This is a synthetic document created for a software demonstration. It describes no real parties or events.

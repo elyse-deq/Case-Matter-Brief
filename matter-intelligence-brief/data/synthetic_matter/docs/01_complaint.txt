@@ -1,0 +1,22 @@
+FICTIONAL COUNTY CIRCUIT COURT
+COMMERCIAL DIVISION
+
+COMPLAINT
+
+Plaintiff: Acme Industrial Supply, Inc.
+Defendant: Northwind Logistics LLC
+Counsel for Plaintiff: Rivera & Chen LLP
+
+Complaint filed on June 15, 2026.
+
+Acme Industrial Supply, Inc. ("Acme") is a distributor of industrial fasteners. Northwind Logistics LLC
+("Northwind") agreed to store and deliver Acme's inventory under a Master Logistics Agreement. Acme alleges
+that Northwind repeatedly missed delivery windows, lost inventory, and billed for services it did not perform.
+
+Count I: Breach of Contract
+Count II: Breach of the Implied Covenant of Good Faith and Fair Dealing
+Count III: Unjust Enrichment
+
+Acme seeks compensatory damages, interest, and costs.
+
+This is a synthetic document created for a software demonstration. It describes no real parties or events.

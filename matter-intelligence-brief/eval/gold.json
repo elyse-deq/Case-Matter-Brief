@@ -1,0 +1,19 @@
+{
+  "proposals": {
+    "DOC-001": ["party/party-plaintiff", "party/party-defendant", "party/counsel-plaintiff", "date/complaint-filed",
+                "issue/count-i", "issue/count-ii", "issue/count-iii"],
+    "DOC-002": ["party/party-defendant", "party/counsel-defendant", "issue/defense-1", "issue/defense-2", "issue/defense-3"],
+    "DOC-003": ["deadline/fact-discovery-close", "deadline/expert-disclosures", "deadline/dispositive-motions", "date/trial"],
+    "DOC-004": ["request/rfp-set-1", "deadline/rfp-set-1-response"],
+    "DOC-005": ["deadline/rfp-set-1-response"],
+    "DOC-006": ["request/rfp-set-1", "deadline/rfp-set-1-response"],
+    "DOC-007": ["party/party-third-party-defendant", "issue/tp-claim-contractual-indemnification", "deadline/tp-answer"]
+  },
+  "final_due_dates": {
+    "rfp-set-1-response": "2026-09-25",
+    "tp-answer": "2026-10-09",
+    "fact-discovery-close": "2027-01-29",
+    "expert-disclosures": "2027-02-26",
+    "dispositive-motions": "2027-04-16"
+  }
+}

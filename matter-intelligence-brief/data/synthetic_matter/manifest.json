@@ -1,0 +1,17 @@
+{
+  "matter": {
+    "id": "acme-v-northwind",
+    "name": "Acme Industrial Supply, Inc. v. Northwind Logistics LLC",
+    "court": "Fictional County Circuit Court, Commercial Division (synthetic)",
+    "matter_type": "Commercial litigation"
+  },
+  "documents": [
+    {"doc_id": "DOC-001", "file": "docs/01_complaint.txt", "title": "Complaint", "doc_type": "Pleading", "received_at": "2026-06-15"},
+    {"doc_id": "DOC-002", "file": "docs/02_answer.txt", "title": "Answer and Affirmative Defenses", "doc_type": "Pleading", "received_at": "2026-07-20"},
+    {"doc_id": "DOC-003", "file": "docs/03_scheduling_order.txt", "title": "Case Management and Scheduling Order", "doc_type": "Court order", "received_at": "2026-08-05"},
+    {"doc_id": "DOC-004", "file": "docs/04_first_rfp.txt", "title": "Plaintiff's First Set of Requests for Production", "doc_type": "Discovery", "received_at": "2026-08-12"},
+    {"doc_id": "DOC-005", "file": "docs/05_extension_email.txt", "title": "Email: extension to respond to First RFPs", "doc_type": "Correspondence", "received_at": "2026-09-02"},
+    {"doc_id": "DOC-006", "file": "docs/06_rfp_responses.txt", "title": "Defendant's Responses and Objections to First RFPs", "doc_type": "Discovery", "received_at": "2026-09-16"},
+    {"doc_id": "DOC-007", "file": "docs/07_third_party_complaint.txt", "title": "Third-Party Complaint", "doc_type": "Pleading", "received_at": "2026-09-18"}
+  ]
+}

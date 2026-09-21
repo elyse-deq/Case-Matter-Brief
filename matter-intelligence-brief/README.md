@@ -62,7 +62,7 @@ Try the review queue: `matter-brief demo --no-approve` leaves material changes p
 ## How it works
 
 1. An **extractor** reads one document and proposes changes, each with a verbatim quote.
-2. The **validation gate** rejects a proposal if its quote is not in the document, its dates are not stated in the quote, or required fields are missing.
+2. The **validation gate** rejects a proposal if its quote is not in the document, or if its dates, periods, or names are not stated in the quote, or if required fields are missing.
 3. Accepted proposals **merge** with the current state. A restated fact creates no change.
 4. A **materiality check** sends new or moved deadlines, new or moved future dates, and new adverse parties to **attorney review**. Everything else applies immediately and stays in the change log.
 5. The **brief** renders from the approved record, with due dates from the deadline engine.
@@ -130,15 +130,72 @@ matter-brief brief  --matter-id demo --format html --out brief.html
 
 Compare models on the same labeled set with `python -m eval.run_eval --extractor llm --provider ollama`. The LLM path is covered by tests using a stub model, including a test that fabricated quotes and wrong dates are rejected. It has not been run against a live model in this repository, so run the eval before trusting it.
 
-## Harvey and other legal AI platforms
+## Where Harvey fits
 
-An extractor is an interface. A firm's existing platform can do the extraction step while this pipeline provides the record, the validation, the review queue, and the brief. [`extractors/harvey_stub.py`](src/matter_brief/extractors/harvey_stub.py) lists what to confirm before building that adapter. [docs/production-notes.md](docs/production-notes.md) covers sources, permissions, ethical walls, and a pilot shape.
+Harvey fills one slot: **extraction**. It answers a fixed set of questions about each document in a Vault review table. This repository turns those answers into proposals, validates each one against the document, and handles everything after that.
+
+```mermaid
+flowchart TB
+    doc["New document"] --> up
+
+    subgraph harvey["Harvey (public API)"]
+        direction LR
+        up["Upload to Vault<br/>POST upload_files"] --> ready["Poll get_files<br/>until ready_to_query"]
+        ready --> row["Run the review table<br/>POST add_row"]
+        row --> cells["Poll get_row<br/>answers with citations"]
+    end
+
+    subgraph repo["This repository"]
+        direction LR
+        map["Column map<br/>cells to record fields"] --> gate["Validation gate<br/>quotes, dates, periods, names"]
+        other["Rules or LLM extractor<br/>for what the table does not cover"] --> gate
+        gate -->|grounded| pipe["Merge and materiality"]
+        gate -.->|"no citation, edited cell,<br/>quote not in document"| rej["Rejection log"]
+        pipe --> record[("Matter record")]
+        pipe -.->|material| rev["Attorney review"]
+        rev -->|approve| record
+        record --> brief["Matter brief"]
+    end
+
+    cells --> map
+    doc --> other
+
+    classDef comp fill:#ecebff,stroke:#9b8ad4,color:#1b1b4b;
+    classDef ext fill:#e8f1fb,stroke:#5b8fc7,color:#0d2a4a;
+    classDef data fill:#f0ede6,stroke:#9a9a9a,color:#222;
+    classDef human fill:#e6f4ea,stroke:#6bb38a,color:#123;
+    classDef bad fill:#fdeceb,stroke:#d9776f,color:#4a1512;
+    class up,ready,row,cells ext;
+    class map,other,gate,pipe,brief comp;
+    class record data;
+    class rev human;
+    class rej bad;
+    style harvey fill:#f5f9fd,stroke:#b9d0ea,color:#0d2a4a;
+    style repo fill:#faf9f6,stroke:#c9c5ba,color:#333;
+```
+
+Checked against Harvey's public developer docs (September 21, 2026), not against a live workspace:
+
+| Question | Answer |
+| --- | --- |
+| Can Vault and review table outputs be reached by API? | **Yes.** Upload, poll status, add a row, and read a row's cells. 10 requests per minute. API access must be enabled by Harvey. |
+| Can a new document trigger a workflow? | **Not documented.** No webhook or event trigger appears. This pipeline pushes instead: upload, wait, add a row, poll the row. Workflow Builder workflows have no documented run or read API. |
+| Does each value come with its source passage? | **Yes, with caveats.** Cells carry a page and a quote. Quotes can be cut off (still valid), and a cell a person edited comes back without citations (rejected until a source is attached). |
+| What are the data handling terms? | **Partly public.** No training on customer data, zero retention by model providers (feature-specific exceptions are off by default), customer-set retention, regional processing. Post-termination deletion, sub-processors, and pilot terms are not in the public pages, so get them in writing. |
+
+Details, the questions to put to Harvey, and the caveats are in [docs/harvey-integration.md](docs/harvey-integration.md).
+
+```bash
+matter-brief demo --extractor harvey-sample    # synthetic Harvey-style rows, rules for the rest
+```
+
+The sample rows in [`data/harvey_sample/`](data/harvey_sample/) follow the documented `get_row` shape but are **assumed and synthetic**, not exported from a real workspace. The live client is written from the public docs and tested against a fake transport only. Other legal AI platforms can plug into the same slot, and [docs/production-notes.md](docs/production-notes.md) covers sources, permissions, ethical walls, and a pilot shape.
 
 ## Project layout
 
 ```
 src/matter_brief/
-  extractors/      rules (demo), llm (Anthropic or Ollama), harvey_stub
+  extractors/      rules (demo), llm (Anthropic or Ollama), harvey (review tables)
   validate.py      the grounding gate
   pipeline.py      ingest, merge, materiality
   deadlines.py     deterministic date math
@@ -146,8 +203,9 @@ src/matter_brief/
   brief.py         Markdown and HTML rendering
   cli.py           demo, init, ingest, review, brief
 data/synthetic_matter/   seven fictional documents
+data/harvey_sample/      synthetic Harvey-style review table rows and a column map
 eval/                    gold labels and scoring
-tests/                   deadlines, validation, pipeline, LLM, brief
+tests/                   deadlines, validation, pipeline, LLM, Harvey adapter, brief
 docs/                    architecture, principles, production notes, diagrams
 ```
 

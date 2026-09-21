@@ -1,7 +1,7 @@
 """Core types. Standard library only."""
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Any
 
 # The five kinds of fact a matter record holds. Documents are tracked separately.
@@ -33,6 +33,9 @@ class Proposal:
 
     Every proposal must carry a verbatim quote from the source document.
     The validator rejects any proposal whose quote is not in the document.
+    When a fact is assembled from several cells (a trigger date in one, a period
+    in another), the other cells' passages go in `supporting_quotes`, and each of
+    those must be found in the document too.
     """
 
     kind: str
@@ -41,6 +44,7 @@ class Proposal:
     source_doc_id: str
     quote: str
     confidence: float = 1.0
+    supporting_quotes: list[str] = field(default_factory=list)
 
 
 @dataclass

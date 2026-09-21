@@ -24,8 +24,8 @@ flowchart LR
 
 | Module | Job |
 | --- | --- |
-| `extractors/` | Turn one document into proposed changes. They only propose. They never write, never compute dates, never decide materiality. |
-| `validate.py` | The gate. A proposal needs a verbatim quote found in the document, and every date it carries must be written in that quote. |
+| `extractors/` | Turn one document into proposed changes: rules, an LLM, or Harvey review tables (see [harvey-integration.md](harvey-integration.md)). They only propose. They never write, never compute dates, never decide materiality. |
+| `validate.py` | The gate. A proposal needs a verbatim quote found in the document. Every date, period, and name it carries must be stated in the quoted passages, and every supporting quote must be found in the document too. |
 | `pipeline.py` | Runs extract, validate, merge, materiality, and record. Decides what waits for review. |
 | `store.py` | SQLite. Holds documents, events, the approved facts, every proposed change with before and after, and every rejection. |
 | `deadlines.py` | Date arithmetic, holiday roll-forward, and agreed extensions. No model is involved. |

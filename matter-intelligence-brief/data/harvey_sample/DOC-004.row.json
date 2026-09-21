@@ -1,0 +1,72 @@
+{
+  "_note": "Synthetic sample. The shape follows the get_row response in Harvey's public developer docs. It was not exported from a real Harvey workspace, and the column names are assumptions.",
+  "assigned_user": "reviewer@example.com",
+  "event_id": 9002,
+  "file_id": "synthetic-doc-004",
+  "is_assigned": true,
+  "updated_at": "Sun, 20 Sep 2026 15:00:00 GMT",
+  "response": {
+    "cells": [
+      {
+        "column_name": "First RFP served by",
+        "column_question": "Who served the first set of requests for production?",
+        "summary": "Plaintiff",
+        "additional_context": "Plaintiff. See the cited passage.",
+        "citations": [
+          {
+            "citation_page": 1,
+            "citation_quote": "Plaintiff served the First Set of Requests for Production on Defendant on August 12, 2026. Responses are due within 30 days after service."
+          }
+        ],
+        "is_edited": false,
+        "is_flagged": false,
+        "is_verified": true
+      },
+      {
+        "column_name": "First RFP served on",
+        "column_question": "Who was it served on?",
+        "summary": "Defendant",
+        "additional_context": "Defendant. See the cited passage.",
+        "citations": [
+          {
+            "citation_page": 1,
+            "citation_quote": "Plaintiff served the First Set of Requests for Production on Defendant on August 12, 2026. Responses are due within 30 days after service."
+          }
+        ],
+        "is_edited": false,
+        "is_flagged": false,
+        "is_verified": true
+      },
+      {
+        "column_name": "First RFP service date",
+        "column_question": "When was it served?",
+        "summary": "August 12, 2026",
+        "additional_context": "August 12, 2026. See the cited passage.",
+        "citations": [
+          {
+            "citation_page": 1,
+            "citation_quote": "Plaintiff served the First Set of Requests for Production on Defendant on August 12, 2026. Responses are due within 30 days after service."
+          }
+        ],
+        "is_edited": false,
+        "is_flagged": false,
+        "is_verified": true
+      },
+      {
+        "column_name": "First RFP response period (days)",
+        "column_question": "How many days to respond?",
+        "summary": "30 days",
+        "additional_context": "30 days. See the cited passage.",
+        "citations": [
+          {
+            "citation_page": 1,
+            "citation_quote": "Responses are due within 30 days aft"
+          }
+        ],
+        "is_edited": false,
+        "is_flagged": false,
+        "is_verified": false
+      }
+    ]
+  }
+}

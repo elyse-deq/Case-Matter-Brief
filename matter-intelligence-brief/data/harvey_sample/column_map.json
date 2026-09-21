@@ -1,0 +1,110 @@
+{
+  "_note": "Maps review table column names to record fields. Edit this for your own table.",
+  "columns": {
+    "Fact discovery close date": {
+      "kind": "deadline",
+      "key": "fact-discovery-close",
+      "field": "date",
+      "parse": "date",
+      "static": {
+        "label": "Fact discovery closes",
+        "status": "open"
+      }
+    },
+    "Expert disclosure date": {
+      "kind": "deadline",
+      "key": "expert-disclosures",
+      "field": "date",
+      "parse": "date",
+      "static": {
+        "label": "Expert disclosures",
+        "status": "open"
+      }
+    },
+    "Dispositive motion deadline": {
+      "kind": "deadline",
+      "key": "dispositive-motions",
+      "field": "date",
+      "parse": "date",
+      "static": {
+        "label": "Dispositive motions",
+        "status": "open"
+      }
+    },
+    "Trial date": {
+      "kind": "date",
+      "key": "trial",
+      "field": "date",
+      "parse": "date",
+      "static": {
+        "label": "Trial begins"
+      }
+    },
+    "First RFP service date": [
+      {
+        "kind": "deadline",
+        "key": "rfp-set-1-response",
+        "field": "trigger_date",
+        "parse": "date",
+        "static": {
+          "label": "Responses to First Set of Requests for Production",
+          "status": "open",
+          "related_request": "rfp-set-1"
+        }
+      },
+      {
+        "kind": "request",
+        "key": "rfp-set-1",
+        "field": "service_date",
+        "parse": "date",
+        "static": {
+          "label": "First Set of Requests for Production",
+          "status": "open"
+        }
+      }
+    ],
+    "First RFP response period (days)": {
+      "kind": "deadline",
+      "key": "rfp-set-1-response",
+      "field": "days",
+      "parse": "int"
+    },
+    "First RFP served by": {
+      "kind": "request",
+      "key": "rfp-set-1",
+      "field": "served_by",
+      "parse": "text"
+    },
+    "First RFP served on": {
+      "kind": "request",
+      "key": "rfp-set-1",
+      "field": "served_on",
+      "parse": "text"
+    },
+    "Third-party defendant": {
+      "kind": "party",
+      "key": "party-third-party-defendant",
+      "field": "name",
+      "parse": "text",
+      "static": {
+        "role": "Third-Party Defendant"
+      }
+    },
+    "Third-party complaint service date": {
+      "kind": "deadline",
+      "key": "tp-answer",
+      "field": "trigger_date",
+      "parse": "date",
+      "static": {
+        "label": "Third-party defendant's answer",
+        "status": "open"
+      }
+    },
+    "Answer period (days)": {
+      "kind": "deadline",
+      "key": "tp-answer",
+      "field": "days",
+      "parse": "int"
+    }
+  }
+}

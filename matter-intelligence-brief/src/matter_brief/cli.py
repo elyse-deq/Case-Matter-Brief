@@ -15,17 +15,34 @@ from datetime import date
 from pathlib import Path
 
 from .brief import build_brief, describe_change, render_html, render_markdown
-from .extractors import LLMExtractor, RulesExtractor, anthropic_complete, ollama_complete
+from .extractors import (FallbackExtractor, HarveyClient, HarveyReviewTableExtractor, LiveRowProvider,
+                         LLMExtractor, RulesExtractor, SampleRowProvider, anthropic_complete,
+                         load_column_map, ollama_complete)
 from .models import DocumentMeta
 from .pipeline import ingest
 from .store import Store
 
 DEFAULT_DATA_DIR = Path(__file__).resolve().parents[2] / "data" / "synthetic_matter"
+HARVEY_SAMPLE_DIR = Path(__file__).resolve().parents[2] / "data" / "harvey_sample"
 
 
-def build_extractor(name: str, provider: str | None = None, model: str | None = None):
+def build_extractor(name: str, provider: str | None = None, model: str | None = None,
+                    harvey_project: str | None = None, harvey_table: str | None = None,
+                    harvey_map: str | None = None):
     if name == "rules":
         return RulesExtractor()
+    if name == "harvey-sample":
+        # Offline demo: synthetic Harvey-style rows where they exist, rules for the rest.
+        return FallbackExtractor(
+            HarveyReviewTableExtractor(SampleRowProvider(HARVEY_SAMPLE_DIR),
+                                       load_column_map(HARVEY_SAMPLE_DIR / "column_map.json")),
+            RulesExtractor())
+    if name == "harvey":
+        if not (harvey_project and harvey_table):
+            raise SystemExit("--extractor harvey requires --harvey-project and --harvey-review-table")
+        provider_ = LiveRowProvider(HarveyClient(), harvey_project, harvey_table)
+        return HarveyReviewTableExtractor(
+            provider_, load_column_map(harvey_map or HARVEY_SAMPLE_DIR / "column_map.json"))
     if name == "llm":
         if provider == "anthropic":
             return LLMExtractor(anthropic_complete(model))
@@ -53,15 +70,18 @@ def cmd_demo(args: argparse.Namespace) -> int:
         db_path.unlink()
     store = Store(str(db_path))
     store.create_matter(matter["id"], matter["name"], matter.get("court", ""), matter.get("matter_type", ""))
-    extractor = RulesExtractor()
+    extractor = build_extractor(args.extractor)
 
     print(f"Matter: {matter['name']}")
+    print(f"Extractor: {extractor.name}" + (" (sample Harvey rows where available, rules elsewhere)"
+                                             if args.extractor == "harvey-sample" else ""))
     print("Reviewer: " + ("auto-approving material changes" if not args.no_approve
                           else "material changes wait in the review queue"))
     for n, (meta, text) in enumerate(docs, start=1):
         result = ingest(store, extractor, matter["id"], meta, text, approve_material=not args.no_approve,
                         actor="demo-reviewer")
-        print(f"\n[{n}] {meta.received_at}  {meta.title}")
+        used = getattr(extractor, "last", "")
+        print(f"\n[{n}] {meta.received_at}  {meta.title}" + (f"  [{used}]" if used else ""))
         for cid in result.change_ids:
             ch = store.get_change(cid)
             flag = " (material)" if ch["material"] else ""
@@ -90,7 +110,8 @@ def cmd_ingest(args: argparse.Namespace) -> int:
     store = Store(args.db)
     text = Path(args.file).read_text(encoding="utf-8")
     meta = DocumentMeta(args.doc_id, args.title, args.type, args.received)
-    extractor = build_extractor(args.extractor, args.provider, args.model)
+    extractor = build_extractor(args.extractor, args.provider, args.model, args.harvey_project,
+                                args.harvey_review_table, args.harvey_column_map)
     result = ingest(store, extractor, args.matter_id, meta, text, approve_material=args.approve,
                     actor=args.by)
     if result.skipped:
@@ -145,6 +166,7 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--data-dir", default=str(DEFAULT_DATA_DIR))
     p.add_argument("--out", default="output")
     p.add_argument("--no-approve", action="store_true", help="leave material changes in the review queue")
+    p.add_argument("--extractor", choices=["rules", "harvey-sample"], default="rules")
     p.set_defaults(func=cmd_demo)
 
     p = sub.add_parser("init", help="create a matter")
@@ -163,9 +185,12 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--title", required=True)
     p.add_argument("--type", default="")
     p.add_argument("--received", required=True, help="ISO date the document arrived")
-    p.add_argument("--extractor", choices=["rules", "llm"], default="llm")
+    p.add_argument("--extractor", choices=["rules", "llm", "harvey"], default="llm")
     p.add_argument("--provider", choices=["anthropic", "ollama"])
     p.add_argument("--model")
+    p.add_argument("--harvey-project", help="Vault project id (uses HARVEY_API_KEY)")
+    p.add_argument("--harvey-review-table", help="review table id whose columns match the column map")
+    p.add_argument("--harvey-column-map", help="path to a column map JSON (defaults to the sample map)")
     p.add_argument("--approve", action="store_true", help="approve material changes immediately")
     p.add_argument("--by", default="reviewer")
     p.set_defaults(func=cmd_ingest)

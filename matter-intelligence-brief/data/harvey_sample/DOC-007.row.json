@@ -1,0 +1,72 @@
+{
+  "_note": "Synthetic sample. The shape follows the get_row response in Harvey's public developer docs. It was not exported from a real Harvey workspace, and the column names are assumptions.",
+  "assigned_user": "reviewer@example.com",
+  "event_id": 9003,
+  "file_id": "synthetic-doc-007",
+  "is_assigned": true,
+  "updated_at": "Sun, 20 Sep 2026 15:00:00 GMT",
+  "response": {
+    "cells": [
+      {
+        "column_name": "Third-party defendant",
+        "column_question": "Who is the third-party defendant?",
+        "summary": "Harbor Freight Partners LP",
+        "additional_context": "Harbor Freight Partners LP. See the cited passage.",
+        "citations": [
+          {
+            "citation_page": 1,
+            "citation_quote": "Third-Party Defendant: Harbor Freight Partners LP"
+          }
+        ],
+        "is_edited": false,
+        "is_flagged": false,
+        "is_verified": true
+      },
+      {
+        "column_name": "Third-party complaint service date",
+        "column_question": "When was the third-party complaint served?",
+        "summary": "September 18, 2026",
+        "additional_context": "September 18, 2026. See the cited passage.",
+        "citations": [
+          {
+            "citation_page": 1,
+            "citation_quote": "The Third-Party Complaint was served on September 18, 2026. The Third-Party Defendant's answer is due within 21 days after service."
+          }
+        ],
+        "is_edited": false,
+        "is_flagged": false,
+        "is_verified": true
+      },
+      {
+        "column_name": "Answer period (days)",
+        "column_question": "How many days does the third-party defendant have to answer?",
+        "summary": "21 days",
+        "additional_context": "21 days. See the cited passage.",
+        "citations": [
+          {
+            "citation_page": 1,
+            "citation_quote": "The Third-Party Complaint was served on September 18, 2026. The Third-Party Defendant's answer is due within 21 days after service."
+          }
+        ],
+        "is_edited": false,
+        "is_flagged": false,
+        "is_verified": true
+      },
+      {
+        "column_name": "Indemnification cap",
+        "column_question": "Is there an indemnification cap?",
+        "summary": "Not found",
+        "additional_context": "Not found. See the cited passage.",
+        "citations": [
+          {
+            "citation_page": 1,
+            "citation_quote": ""
+          }
+        ],
+        "is_edited": false,
+        "is_flagged": false,
+        "is_verified": false
+      }
+    ]
+  }
+}

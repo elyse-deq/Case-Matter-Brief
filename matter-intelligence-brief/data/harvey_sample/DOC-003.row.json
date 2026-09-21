@@ -1,0 +1,87 @@
+{
+  "_note": "Synthetic sample. The shape follows the get_row response in Harvey's public developer docs. It was not exported from a real Harvey workspace, and the column names are assumptions.",
+  "assigned_user": "reviewer@example.com",
+  "event_id": 9001,
+  "file_id": "synthetic-doc-003",
+  "is_assigned": true,
+  "updated_at": "Sun, 20 Sep 2026 15:00:00 GMT",
+  "response": {
+    "cells": [
+      {
+        "column_name": "Document type",
+        "column_question": "What type of document is this?",
+        "summary": "Case management and scheduling order",
+        "additional_context": "Case management and scheduling order. See the cited passage.",
+        "citations": [
+          {
+            "citation_page": 1,
+            "citation_quote": "CASE MANAGEMENT AND SCHEDULING ORDER"
+          }
+        ],
+        "is_edited": false,
+        "is_flagged": false,
+        "is_verified": true
+      },
+      {
+        "column_name": "Fact discovery close date",
+        "column_question": "When does fact discovery close?",
+        "summary": "January 29, 2027",
+        "additional_context": "January 29, 2027. See the cited passage.",
+        "citations": [
+          {
+            "citation_page": 1,
+            "citation_quote": "Fact discovery closes on January 29, 2027."
+          }
+        ],
+        "is_edited": false,
+        "is_flagged": false,
+        "is_verified": true
+      },
+      {
+        "column_name": "Expert disclosure date",
+        "column_question": "When are expert disclosures due?",
+        "summary": "February 26, 2027",
+        "additional_context": "February 26, 2027. See the cited passage.",
+        "citations": [
+          {
+            "citation_page": 1,
+            "citation_quote": "Expert disclosures are due on February 26, 2027."
+          }
+        ],
+        "is_edited": false,
+        "is_flagged": false,
+        "is_verified": true
+      },
+      {
+        "column_name": "Dispositive motion deadline",
+        "column_question": "When are dispositive motions due?",
+        "summary": "April 16, 2027",
+        "additional_context": "April 16, 2027. See the cited passage.",
+        "citations": [
+          {
+            "citation_page": 1,
+            "citation_quote": "Dispositive motions are due on April 16, 2027."
+          }
+        ],
+        "is_edited": false,
+        "is_flagged": false,
+        "is_verified": true
+      },
+      {
+        "column_name": "Trial date",
+        "column_question": "When does trial begin?",
+        "summary": "June 7, 2027",
+        "additional_context": "June 7, 2027. See the cited passage.",
+        "citations": [
+          {
+            "citation_page": 1,
+            "citation_quote": "Trial is set to begin on June 7, 2027."
+          }
+        ],
+        "is_edited": false,
+        "is_flagged": false,
+        "is_verified": true
+      }
+    ]
+  }
+}

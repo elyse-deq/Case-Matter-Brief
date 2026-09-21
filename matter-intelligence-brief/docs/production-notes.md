@@ -13,9 +13,9 @@ This repository runs on synthetic documents. Real matters need more than the pip
 
 ## Where Harvey fits
 
-For a firm that licenses Harvey, Vault and Workflow Builder can perform the extraction step. Implement `extractors/harvey_stub.py` so a workflow's structured output becomes proposals. Confirm three things first: whether workflow and Vault outputs are available through an API or export, whether a workflow can be triggered by a new document, and whether every extracted value carries a source passage. If values arrive without a source passage, the validation gate will reject them, which is the intended behavior.
+For a firm that licenses Harvey, a Vault review table can perform the extraction step. The adapter in `extractors/harvey.py` turns review table cells into proposals, and the pipeline validates them like any other. What Harvey's public documentation confirms, what it does not, and what to ask are in [harvey-integration.md](harvey-integration.md).
 
-Everything downstream of extraction (validation, change log, review queue, deadline engine, brief) stays the same. The brief can then be surfaced in Word, Teams, or a dashboard such as a legal operations view that already shows matter status.
+The brief can then be surfaced in Word, Teams, or a dashboard such as a legal operations view that already shows matter status.
 
 ## Non-negotiables before a pilot
 

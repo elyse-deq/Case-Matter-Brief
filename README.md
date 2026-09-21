@@ -69,6 +69,46 @@ Try the review queue: `matter-brief demo --no-approve` leaves material changes p
 
 Details, the record schema, and the materiality policy are in [docs/architecture.md](docs/architecture.md).
 
+## Architecture
+
+```mermaid
+flowchart LR
+    src["New material<br/>filing, order, email"] --> ext["Extractor<br/>rules, LLM, or Harvey"]
+    ext -->|"proposals with quotes"| gate["Validation gate"]
+    gate -->|grounded| pipe["Pipeline<br/>merge and materiality"]
+    gate -.->|"ungrounded"| rej
+    pipe -->|"routine"| facts
+    pipe -->|"every change"| chg
+    pipe -.->|"material"| rev["Attorney review"]
+    rev -->|approve| facts
+
+    subgraph record["Matter record (SQLite)"]
+        direction TB
+        facts["Facts with source quotes"]
+        chg["Change log"]
+        docs["Documents and events"]
+        rej["Rejection log"]
+    end
+
+    record --> eng["Deadline engine"]
+    record --> brief["Brief renderer"]
+    eng --> brief
+    brief --> md["Markdown brief"]
+    brief --> html["HTML brief<br/>hover shows source quote"]
+
+    classDef comp fill:#ecebff,stroke:#9b8ad4,color:#1b1b4b;
+    classDef data fill:#f0ede6,stroke:#9a9a9a,color:#222;
+    classDef human fill:#e6f4ea,stroke:#6bb38a,color:#123;
+    classDef bad fill:#fdeceb,stroke:#d9776f,color:#4a1512;
+    class src,ext,gate,pipe,eng,brief comp;
+    class facts,chg,docs,md,html data;
+    class rev human;
+    class rej bad;
+    style record fill:#faf9f6,stroke:#c9c5ba,color:#333;
+```
+
+Solid lines are the normal path. Dotted lines are the exceptions: ungrounded output goes to the rejection log, and material changes wait for attorney review. GitHub renders this diagram, and you can zoom and pan it.
+
 ## Use a real model
 
 The rules extractor keeps the demo runnable without a model. For real documents, use the LLM extractor. It passes through the same validation gate, so a hallucinated fact is rejected and logged.

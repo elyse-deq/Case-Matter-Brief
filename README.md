@@ -10,7 +10,7 @@
 
 **Author:** [Elyse Dequina](https://elysedequina.org) &nbsp;|&nbsp; [Portfolio](https://elysedequina.org) &nbsp;|&nbsp; [GitHub](https://github.com/elyse-deq)
 
-<img src="docs/flow.svg" alt="Flow diagram: a new document is extracted, validated, checked for materiality, and applied to the matter record or sent to attorney review, then rendered as the matter brief." width="100%">
+<img src="https://raw.githubusercontent.com/elyse-deq/matter-intelligence-brief/main/docs/flow.svg" alt="Flow diagram: a new document is extracted, validated, checked for materiality, and applied to the matter record or sent to attorney review, then rendered as the matter brief." width="100%">
 
 ## The idea
 
@@ -53,7 +53,7 @@ Then a third-party complaint arrives. The brief adds a new party, a new claim, a
 | Feb 26, 2027 (Fri) | Expert disclosures | Upcoming | DOC-003 |
 | Apr 16, 2027 (Fri) | Dispositive motions | Upcoming | DOC-003 |
 
-<img src="docs/brief-preview.png" alt="Preview of the HTML brief showing what changed, key parties, important dates, and documents." width="760">
+<img src="https://raw.githubusercontent.com/elyse-deq/matter-intelligence-brief/main/docs/brief-preview.png" alt="Preview of the HTML brief showing what changed, key parties, important dates, and documents." width="760">
 
 In the HTML brief, hovering a row shows the exact passage the fact came from. More samples are in [`examples/`](examples/).
 
